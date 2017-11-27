@@ -8,7 +8,7 @@ import { Candidate, Donation, User } from './models';
 export class DonationService {
   ea: EventAggregator;
   donations: Array<Donation> = [];
-  methods: Array<String> = [];
+  methods: Array<string> = [];
   candidates: Array<Candidate> = [];
   users: Map<string, User>;
   total = 0;
@@ -61,8 +61,9 @@ export class DonationService {
   login(email: string, password: string) {
     const loginStatus = new LoginStatus(false);
 
-    if (this.users[email]) {
-      if (this.users[email].password === password) {
+    const user = this.users.get(email);
+    if (user) {
+      if (user.password === password) {
         loginStatus.status = true;
         loginStatus.message = 'logged in';
       } else {
