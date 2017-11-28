@@ -20,6 +20,27 @@ export class Home {
         title: 'Report',
       },
       {
+        route: 'candidates',
+        name: 'candidates',
+        moduleId: 'components/candidates',
+        nav: true,
+        title: 'Candidates',
+      },
+      {
+        route: 'stats',
+        name: 'stats',
+        moduleId: 'components/stats',
+        nav: true,
+        title: 'Stats',
+      },
+      {
+        route: 'dashboard',
+        name: 'dashboard',
+        moduleId: 'components/dashboard',
+        nav: true,
+        title: 'Dashboard',
+      },
+      {
         route: 'logout',
         name: 'logout',
         moduleId: 'components/logout',
