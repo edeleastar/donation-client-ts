@@ -1,11 +1,11 @@
 import { inject } from 'aurelia-framework';
 import { DonationService } from '../services/donation-service';
-import { Candidate } from '../services/models';
+import { Candidate, Donation } from '../services/models';
 
 @inject(DonationService)
 export class Donate {
   donationService: DonationService;
-  amount = 0;
+  amount = '0';
 
   methods: Array<string> = [];
   selectedMethod = '';
@@ -23,7 +23,7 @@ export class Donate {
 
   makeDonation() {
     this.donationService.donate(
-      this.amount,
+      parseInt(this.amount),
       this.selectedMethod,
       this.selectedCandidate,
     );
