@@ -67,17 +67,26 @@ export class DonationService {
       lastName: lastName,
       office: office,
     };
-    this.candidates.push(candidate);
+    this.ac.post('/api/candidates', candidate).then(res => {
+      this.candidates.push(res.content);
+    });
   }
 
-  register(firstName, lastName, email, password) {
+  register(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+  ) {
     const newUser = {
       firstName: firstName,
       lastName: lastName,
       email: email,
       password: password,
     };
-    this.users.set(email, newUser);
+    this.ac.post('/api/users', newUser).then(res => {
+      this.getUsers();
+    });
   }
 
   login(email: string, password: string) {
