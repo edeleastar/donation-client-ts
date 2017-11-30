@@ -20,7 +20,6 @@ export class DonationService {
     this.ea = ea;
     this.ac = ac;
     this.getCandidates();
-    this.getUsers();
   }
 
   getCandidates() {
@@ -90,23 +89,15 @@ export class DonationService {
   }
 
   login(email: string, password: string) {
-    const loginStatus = new LoginStatus(false);
-
-    const user = this.users.get(email);
-    if (user) {
-      if (user.password === password) {
-        loginStatus.status = true;
-        loginStatus.message = 'logged in';
-      } else {
-        loginStatus.message = 'Incorrect password';
-      }
-    } else {
-      loginStatus.message = 'Unknown user';
-    }
-    this.ea.publish(loginStatus);
+    const user = {
+      email: email,
+      password: password
+    };
+    this.ac.authenticate('/api/users/authenticate', user);
   }
 
   logout() {
+    this.ac.clearAuthentication();
     this.ea.publish(new LoginStatus(false));
   }
 }
