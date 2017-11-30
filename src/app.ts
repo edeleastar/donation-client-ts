@@ -2,18 +2,22 @@ import { inject, Aurelia } from 'aurelia-framework';
 import { RouterConfiguration, Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { LoginStatus } from './services/messages';
+import { DonationService } from './services/donation-service';
 
-@inject(Aurelia, EventAggregator)
+@inject(Aurelia, EventAggregator, DonationService)
 export class App {
   router: Router;
+  au: Aurelia;
+  ds: DonationService;
 
-  constructor(au: Aurelia, ea: EventAggregator) {
+  constructor(au: Aurelia, ea: EventAggregator, ds: DonationService) {
+    this.au = au;
+    this.ds = ds;
     ea.subscribe(LoginStatus, msg => {
       this.router.navigate('/', { replace: true, trigger: false });
       this.router.reset();
       if (msg.status === true) {
         au.setRoot('home');
-
       } else {
         au.setRoot('app');
       }
@@ -38,5 +42,13 @@ export class App {
       },
     ]);
     this.router = router;
+  }
+
+  attached() {
+    if (this.ds.isAuthenticated()) {
+      this.au.setRoot('home').then(() => {
+        this.router.navigateToRoute('dashboard');
+      });
+    }
   }
 }

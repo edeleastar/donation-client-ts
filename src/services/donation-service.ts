@@ -22,6 +22,10 @@ export class DonationService {
     this.getCandidates();
   }
 
+  isAuthenticated() {
+    return this.ac.isAuthenticated();
+  }
+
   getCandidates() {
     this.ac.get('/api/candidates').then(res => {
       this.candidates = res.content;
@@ -51,7 +55,7 @@ export class DonationService {
         console.log(
           `${amount} donated to ${candidate.firstName} ${
             candidate.lastName
-            } : ${method}`,
+          } : ${method}`,
         );
 
         this.total = this.total + amount;
@@ -91,7 +95,7 @@ export class DonationService {
   login(email: string, password: string) {
     const user = {
       email: email,
-      password: password
+      password: password,
     };
     this.ac.authenticate('/api/users/authenticate', user);
   }

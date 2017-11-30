@@ -5,7 +5,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { LoginStatus } from './messages';
 import { User } from './models';
 
-@inject(HttpClient, Fixtures)
+@inject(HttpClient, Fixtures, EventAggregator)
 export default class AsyncHttpClient {
   http: HttpClient;
   ea: EventAggregator;
